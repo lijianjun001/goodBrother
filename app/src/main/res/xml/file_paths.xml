@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-files-path
+        path="/"
+        name="goodBrother-external-files-path" />
+    <external-path
+        path="goodBrother/"
+        name="external_storage_root" />
+</paths>

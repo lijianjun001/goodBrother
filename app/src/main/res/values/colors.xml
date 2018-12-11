@@ -3,4 +3,14 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="app_bg_common">#F3F5F9</color>
+    <color name="main_tap_text_color">#5D5D5D</color>
+    <color name="light_green_bg">#2DC090</color>
+    <color name="navigation_bg">#2DC090</color>
+    <color name="common_navigation_title">#333333</color>
+    <color name="common_navigation_grey_666666">#666666</color>
+    <color name="horizon_list_view_track">#EDEDED</color>
+
+
+    <color name="profit_total">#f15f32</color>
 </resources>

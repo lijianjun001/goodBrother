@@ -1,0 +1,45 @@
+package com.antelope.goodbrother.config;
+
+public class RouterConfig {
+    public static final String ACTIVITY_WEB="/com/WebActivity";
+    public static final String ACTIVITY_MY_SHEEPFOLD="/com/MySheepFoldActivity";
+    public static final String ACTIVITY_MAIN="/com/MainActivity";
+    public static final String ACTIVITY_FARM_OVERVIEW_ACTIVITY="/com/FarmOverviewActivity";
+    public static final String ACTIVITY_MESSAGE="/com/MessageActivity";
+    public static final String WEB_URL = "webUrl";
+    public static final String WEB_DATA = "webData";
+    public static final String ACTIVITY_ADD_ADDRESS="/com/AddAddressActivity";
+    public static final String ACTIVITY_ADDRESS="/com/AddressActivity";
+    public static final int ACTIVITY_ADDRESS_REQUEST=1001;
+    public static final int ACTIVITY_ADDRESS_RESULT=1002;
+    public static final String KEY_IS_SELECT_ADDRESS="isSelectAddress";
+    public static final String KEY_ADDRESS_ENTITY="addressEntity";
+    public static final String ACTIVITY_ORDER="/com/OrderActivity";
+    public static final String ACTIVITY_REMIND="/com/RemindActivity";
+    public static final String ACTIVITY_MEDAL="/com/MedalActivity";
+    public static final String ACTIVITY_GIFT="/com/GiftActivity";
+    public static final String ACTIVITY_TASK="/com/TaskActivity";
+    public static final String ACTIVITY_INTEGRAL="/com/IntegralActivity";
+    public static final String ACTIVITY_REFERRER="/com/ReferrerActivity";
+    public static final String ACTIVITY_REFERRER_LIST="/com/ReferrerListActivity";
+    public static final String ACTIVITY_STORE="/com/StoreActivity";
+    public static final String ACTIVITY_GIFT_DETAIL="/com/GiftDetailActivity";
+    public static final String KEY_GIFT_ID="giftId";
+    public static final String KEY_GIFT_RECEIVE_ID="giftReceiveId";
+    public static final String ACTIVITY_BUY_SHEEP="/com/BuySheepActivity";
+    public static final String KEY_PROJECT="project";
+    public static final String ACTIVITY_FARM_ASSERTS="/com/FarmAssertsActivity";
+    public static final String ACTIVITY_SIGN_IN="/com/SignInActivity";
+    public static final String ACTIVITY_LOGIN_BY_PASSWORD="/com/LoginByPasswordActivity";
+    public static final String KEY_SHARE_RESULT="shareResult";
+    public static final String ACTIVITY_WALLET="/com/WalletActivity";
+    public static final String ACTIVITY_RED_PACKET="/com/RedPacketActivity";
+    public static final String ACTIVITY_MY_ACTIVITY="/com/MyActivityActivity";
+    public static final String ACTIVITY_PERSONAL_INFO="/com/PersonalInfoActivity";
+    public static final String ACTIVITY_PERSONAL_INFO_SETTING="/com/PersonalInfoSettingActivity";
+    public static final String ACTIVITY_SET_REDEEM_PASSWORD="/com/SetRedeemPasswordActivity";
+    public static final String ACTIVITY_SET_LOGIN_PASSWORD="/com/SetLoginPasswordActivity";
+    public static final String ACTIVITY_FIND_PASSWORD="/com/FindPasswordActivity";
+    public static final String ACTIVITY_HELP="/com/HelpActivity";
+    public static final String ACTIVITY_REGISTER ="/com/RegisterActivity" ;
+}

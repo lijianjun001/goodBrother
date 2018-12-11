@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="edit_with_eye">
+        <attr name="hint_str" format="string"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="common_item">
+        <attr name="name" format="string"></attr>
+        <attr name="value" format="string"></attr>
+        <attr name="arrows" format="boolean"></attr>
+        <attr name="line" format="boolean"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="wave_view">
+        <attr name="wave_color" format="color"></attr>
+        <attr name="wave_direction_to_right" format="boolean"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="count_Down">
+        <attr name="item_bg" format="reference"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="day_task">
+        <attr name="task_name" format="string"></attr>
+        <attr name="task_value" format="string"></attr>
+        <attr name="show_line" format="boolean"></attr>
+    </declare-styleable>
+
+
+</resources>

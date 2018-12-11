@@ -3,27 +3,72 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
-
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.antelope.goodbrother"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        externalNativeBuild {
-            cmake {
-                cppFlags ""
+        versionName "1.0.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
             }
         }
     }
-    buildTypes {
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            storeFile file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
         }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/main_res',
+                    'src/main/my_res',
+                    'src/main/update_res',
+                    'src/main/banner_res',
+            ]
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId "com.antelope.goodbrother" //JPush上注册的包名.
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters  'armeabi-v7a',  'x86', 'x86_64','arm64-v8a'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "8620c8059a65516c1df2197e", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+    }
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
     }
     externalNativeBuild {
         cmake {
@@ -31,13 +76,31 @@ android {
         }
     }
 }
-
+repositories {
+    maven {
+        url "http://maven.aliyun.com/nexus/content/repositories/releases"
+    }
+}
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api project(':lib_base')
+    api project(':lib_share')
+    api project(path: ':lib_banner')
+    api 'com.android.support:multidex:1.0.3'
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    api 'com.sina.weibo.sdk:core:4.3.6:openDefaultRelease@aar'
+    api 'org.greenrobot:eventbus:3.1.1'
+    api 'cn.jiguang.sdk:jpush:3.0.9'
+    api 'cn.jiguang.sdk:jcore:1.1.7'
+    api 'com.github.pinguo-zhouwei:MZBannerView:v2.0.1'
+    api 'com.github.chrisbanes:PhotoView:2.1.3'
+    api 'com.alibaba:arouter-api:1.4.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    api 'com.aliyun.ams:alicloud-android-hotfix:3.2.6'
+
+
 }

@@ -1,27 +1,39 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.50'
+    ext.kotlin_version = '1.2.71'
     repositories {
         google()
         jcenter()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.0-alpha04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.novoda:bintray-release:0.5.0'//jcenter
     }
 }
 
 allprojects {
     repositories {
-        google()
         jcenter()
+        maven { url "https://jitpack.io" }
+        mavenCentral()
+        maven { url "https://dl.bintray.com/thelasterstar/maven/" }
+        maven {
+            url 'https://maven.google.com'
+        }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+tasks.withType(Javadoc) {
+    options{
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
 }

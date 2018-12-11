@@ -1,3 +1,50 @@
 <resources>
-    <string name="app_name">goodBrother</string>
+    <string name="app_name">众牧宝</string>
+    <string name="login_register_and_login_str">注册并登录</string>
+    <string name="login_send_red_packet_label_str">注册即送 80元收益红包</string>
+    <string name="login_input_tel_str">请输入手机号码</string>
+    <string name="login_next_step">下一步</string>
+    <string name="login_read_and_agree">我已阅读并同意</string>
+    <string name="login_user_agreement">《用户协议》</string>
+    <string name="login_send_message">我们将发送短信验证码至：</string>
+    <string name="login_app">登录众牧宝</string>
+    <string name="login_open_cloud_farm">立即打开 云端牧场</string>
+    <string name="login_input_password">请输入登录密码</string>
+    <string name="login_btn">登录</string>
+    <string name="login_another_method">其它登录方式</string>
+    <string name="login_input_v_code">请输入验证码</string>
+    <string name="login_input_tel_v_code">请输入手机验证码</string>
+    <string name="login_get_v_code">获取验证码</string>
+    <string name="login_agree">登录即代表阅读并同意</string>
+
+
+    <string name="network_error">当前网络不可用，请检查网络</string>
+    <string name="loading_data">正在获取数据</string>
+    <string name="failure_str">请求超时，请重试</string>
+    <string name="re_login">请重新登录</string>
+    <string name="invite_rule"><u>邀请规则</u></string>
+    <string name="service_tel"><u>4006569889</u></string>
+    //客服手机号
+    <string name="invalidate_telephone"><u>无效的手机号</u></string>
+
+
+    <string name="password_set_password">设置密码</string>
+    <string name="password_input_code">请输入验证码</string>
+    <string name="password_input_password">请输入登录密码 （6 ~ 16位）</string>
+    <string name="password_find">找回密码</string>
+    <string name="password_input_new_password">请输入新密码 （6 ~ 16位）</string>
+    <string name="password_get_v_code">获取验证码</string>
+    <string name="password_commit">确定</string>
+    <string name="register_has_register">账号已被注册</string>
+
+    <string name="invite_people">好友邀请码</string>
+    <string name="input_invite_people">请输入好友邀请码</string>
+    <string name="invite_people_notice">注意：邀请码提交后无法修改 （无邀请码可不填写）</string>
+    <string name="invite_skip">跳过，直接登录</string>
+
+
+    <string name="farm_profits_has_redeem">有赎回</string>
+    <string name="farm_profits_red_packet_over">红包过期</string>
+
+    <string name="behavior_test">com.nirvana.ylmc.widget.MyBehavior</string>
 </resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/masking_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.6"
+    android:background="@color/black"
+    android:orientation="vertical">
+
+</LinearLayout>
