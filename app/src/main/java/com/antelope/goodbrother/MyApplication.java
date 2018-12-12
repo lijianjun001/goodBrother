@@ -28,6 +28,7 @@ public class MyApplication extends BaseApplication {
             ARouter.openDebug();
         }
         ARouter.init(this);
+
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
 
             @Override
