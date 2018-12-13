@@ -6,8 +6,8 @@ public class RouterConfig {
     public static final String ACTIVITY_MAIN="/com/MainActivity";
     public static final String ACTIVITY_FARM_OVERVIEW_ACTIVITY="/com/FarmOverviewActivity";
     public static final String ACTIVITY_MESSAGE="/com/MessageActivity";
-    public static final String WEB_URL = "webUrl";
-    public static final String WEB_DATA = "webData";
+    public static final String KEY_WEB_URL = "webUrl";
+    public static final String KEY_WEB_DATA = "webData";
     public static final String ACTIVITY_ADD_ADDRESS="/com/AddAddressActivity";
     public static final String ACTIVITY_ADDRESS="/com/AddressActivity";
     public static final int ACTIVITY_ADDRESS_REQUEST=1001;

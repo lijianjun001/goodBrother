@@ -1,6 +1,5 @@
-package com.antelope.goodbrother.Web;
+package com.antelope.goodbrother.web;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,11 +25,12 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.antelope.goodbrother.R;
 import com.antelope.goodbrother.config.RouterConfig;
 import com.antelope.goodbrother.widget.X5WebView;
-import com.cylty.zhongmukeji.WeakHandler;
 import com.cylty.zhongmukeji.utils.StringUtils;
+import com.nirvana.zmkj.base.BaseActivity;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.sdk.CookieSyncManager;
@@ -38,12 +38,11 @@ import com.tencent.smtt.sdk.DownloadListener;
 import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
-import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.tencent.smtt.utils.TbsLog;
-
-public class BrowserActivity extends Activity {
+@Route(path = RouterConfig.ACTIVITY_WEB)
+public class BrowserActivity extends BaseActivity {
 
     private X5WebView mWebView;
     private ViewGroup mViewParent;
@@ -54,10 +53,9 @@ public class BrowserActivity extends Activity {
     private ImageButton mMore;
     private Button mGo;
     private EditText mUrl;
-    private static final String mHomeUrl = "http://m.jinianbishequ.com";
+    private static final String mHomeUrl = "content://home";
     private static final String TAG = "BrowserActivity";
     private static final int MAX_LENGTH = 14;
-    private boolean mNeedTestPage = false;
 
     private final int disable = 120;
     private final int enable = 255;
@@ -65,8 +63,10 @@ public class BrowserActivity extends Activity {
     private ProgressBar mPageLoadingProgressBar = null;
 
     private ValueCallback<Uri> uploadFile;
-    private String webUrl = "";
-    private String webData = "";
+    private ValueCallback<Uri[]> uploadFiles;
+
+    private String webUrl = null;
+    private String webData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +74,8 @@ public class BrowserActivity extends Activity {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            webUrl = bundle.getString(RouterConfig.WEB_URL);
-            webData = bundle.getString(RouterConfig.WEB_DATA);
+            webUrl = bundle.getString(RouterConfig.KEY_WEB_URL);
+            webData = bundle.getString(RouterConfig.KEY_WEB_DATA);
         }
         //
         try {
@@ -226,19 +226,20 @@ public class BrowserActivity extends Activity {
             // For Android 3.0+
             public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
                 Log.i("test", "openFileChooser 1");
-                openFileChooseProcess();
+                openFileChooser(uploadMsg, acceptType, null);
             }
 
             // For Android < 3.0
             public void openFileChooser(ValueCallback<Uri> uploadMsgs) {
                 Log.i("test", "openFileChooser 2");
-                openFileChooseProcess();
+                openFileChooser(uploadMsgs, "*/*");
             }
 
             // For Android  > 4.1.1
             public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
                 Log.i("test", "openFileChooser 3");
-                openFileChooseProcess();
+                BrowserActivity.this.uploadFile = uploadMsg;
+                openFileChooseProcess(acceptType);
             }
 
             // For Android  >= 5.0
@@ -246,7 +247,8 @@ public class BrowserActivity extends Activity {
                                              ValueCallback<Uri[]> filePathCallback,
                                              FileChooserParams fileChooserParams) {
                 Log.i("test", "openFileChooser 4:" + filePathCallback.toString());
-                openFileChooseProcess();
+                BrowserActivity.this.uploadFiles = filePathCallback;
+                openFileChooseProcess(fileChooserParams.getAcceptTypes()[0]);
                 return true;
             }
         });
@@ -299,32 +301,15 @@ public class BrowserActivity extends Activity {
         });
 
         WebSettings webSetting = mWebView.getSettings();
-        webSetting.setAllowFileAccess(true);
-        webSetting.setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
-        webSetting.setSupportZoom(true);
-        webSetting.setBuiltInZoomControls(true);
-        webSetting.setUseWideViewPort(true);
-        webSetting.setSupportMultipleWindows(false);
-        // webSetting.setLoadWithOverviewMode(true);
-        webSetting.setAppCacheEnabled(true);
-        // webSetting.setDatabaseEnabled(true);
-        webSetting.setDomStorageEnabled(true);
-        webSetting.setJavaScriptEnabled(true);
-        webSetting.setGeolocationEnabled(true);
-        webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
         webSetting.setAppCachePath(this.getDir("appcache", 0).getPath());
         webSetting.setDatabasePath(this.getDir("databases", 0).getPath());
         webSetting.setGeolocationDatabasePath(this.getDir("geolocation", 0)
                 .getPath());
-        // webSetting.setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);
-        webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
-        // webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        // webSetting.setPreFectch(true);
         long time = System.currentTimeMillis();
         if (!StringUtils.isEmpty(webData)) {
-            mWebView.loadDataWithBaseURL("", webData, "text/html", "utf-8", "");
+            mWebView.loadBody(webData);
         } else {
-            if (!StringUtils.isEmpty(webUrl)) {
+            if (StringUtils.isEmpty(webUrl)) {
                 mWebView.loadUrl(mHomeUrl);
             } else {
                 mWebView.loadUrl(webUrl);
@@ -503,9 +488,14 @@ public class BrowserActivity extends Activity {
                                 : data.getData();
                         uploadFile.onReceiveValue(result);
                         uploadFile = null;
+                    } else if (uploadFiles != null) {
+                        Uri result = data == null ? null
+                                : data.getData();
+                        uploadFiles.onReceiveValue(new Uri[]{
+                                result
+                        });
+                        uploadFiles = null;
                     }
-                    break;
-                default:
                     break;
             }
         } else if (resultCode == RESULT_CANCELED) {
@@ -514,6 +504,9 @@ public class BrowserActivity extends Activity {
                 uploadFile = null;
             }
 
+        } else {
+            uploadFile = null;
+            uploadFiles = null;
         }
 
     }
@@ -527,24 +520,17 @@ public class BrowserActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        if (weakHandler != null)
-            weakHandler.removeCallbacksAndMessages(null);
         if (mWebView != null)
             mWebView.destroy();
         super.onDestroy();
     }
 
-    private WeakHandler weakHandler = new WeakHandler() {
-
-
-    };
-
     private final static int FILE_REQUEST_CODE = 0;
 
-    private void openFileChooseProcess() {
+    private void openFileChooseProcess(String type) {
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.addCategory(Intent.CATEGORY_OPENABLE);
-        i.setType("*/*");
+        i.setType(type);
         startActivityForResult(Intent.createChooser(i, "文件选择"), FILE_REQUEST_CODE);
     }
 

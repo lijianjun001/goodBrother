@@ -1,4 +1,4 @@
-package com.antelope.goodbrother.Web;
+package com.antelope.goodbrother.web;
 
 public interface WebViewJavaScriptFunction {
 

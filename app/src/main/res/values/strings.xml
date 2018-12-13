@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">众牧宝</string>
+    <string name="app_name">好帮手</string>
     <string name="login_register_and_login_str">注册并登录</string>
     <string name="login_send_red_packet_label_str">注册即送 80元收益红包</string>
     <string name="login_input_tel_str">请输入手机号码</string>

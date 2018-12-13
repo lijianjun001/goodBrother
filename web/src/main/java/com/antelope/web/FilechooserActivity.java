@@ -31,21 +31,19 @@ public class FilechooserActivity extends Activity {
             // For Android 3.0+
             public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
                 Log.i("test", "openFileChooser 1");
-                FilechooserActivity.this.uploadFile = uploadFile;
-                openFileChooseProcess();
+                openFileChooser(uploadMsg,acceptType,null);
             }
 
             // For Android < 3.0
             public void openFileChooser(ValueCallback<Uri> uploadMsgs) {
                 Log.i("test", "openFileChooser 2");
-                FilechooserActivity.this.uploadFile = uploadFile;
-                openFileChooseProcess();
+               openFileChooser(uploadMsgs,"*/*");
             }
 
             // For Android  > 4.1.1
             public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
                 Log.i("test", "openFileChooser 3");
-                FilechooserActivity.this.uploadFile = uploadFile;
+                FilechooserActivity.this.uploadFile = uploadMsg;
                 openFileChooseProcess();
             }
 

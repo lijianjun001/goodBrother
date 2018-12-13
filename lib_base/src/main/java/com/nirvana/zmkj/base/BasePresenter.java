@@ -6,12 +6,12 @@ import com.cylty.zhongmukeji.myOkhttp.RxManager;
 import com.nirvana.zmkj.widget.ShowMessageProxy;
 
 public class BasePresenter {
-    public Activity activity;
+    public Activity mActivity;
     protected RxManager mRxManager = new RxManager();
     public ShowMessageProxy showMessageProxy;
 
     public BasePresenter(Activity activity) {
-        this.activity = activity;
+        this.mActivity = activity;
         showMessageProxy = new ShowMessageProxy(activity);
     }
 

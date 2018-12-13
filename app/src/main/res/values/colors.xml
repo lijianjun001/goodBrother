@@ -10,7 +10,6 @@
     <color name="common_navigation_title">#333333</color>
     <color name="common_navigation_grey_666666">#666666</color>
     <color name="horizon_list_view_track">#EDEDED</color>
-
-
     <color name="profit_total">#f15f32</color>
+
 </resources>

@@ -533,4 +533,19 @@ public class BitmapUtil {
         ColorStateList colorStateList = new ColorStateList(states, colors);
         return colorStateList;
     }
+
+    @SuppressLint("NewApi")
+    public static void setBackground(Context context, View view, int rId) {
+        Drawable bitmap = context.getResources().getDrawable(rId);
+        view.setBackground(bitmap);
+    }
+
+    public static void recycleBackground(View view) {
+        BitmapDrawable temp = (BitmapDrawable) view.getBackground();
+        if (temp != null) {
+            view.setBackgroundResource(0);// 别忘了把背景设为null，避免onDraw刷新背景时候出现used
+            temp.setCallback(null);
+            temp.getBitmap().recycle();
+        }
+    }
 }
