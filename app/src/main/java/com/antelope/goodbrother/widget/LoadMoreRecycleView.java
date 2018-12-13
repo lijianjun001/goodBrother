@@ -84,6 +84,5 @@ public class LoadMoreRecycleView extends RecyclerView {
         loadData.clear();
         loadData.add(FootViewAdapter.LOAD_COMPLETE);
         footViewAdapter.notifyDataSetChanged();
-        delegateAdapter.addAdapter(footViewAdapter);
     }
 }
