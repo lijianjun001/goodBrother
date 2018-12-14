@@ -26,6 +26,4 @@ public class StartPresenter extends BasePresenter {
         mActivity.finish();
     }
 
-
-
 }
