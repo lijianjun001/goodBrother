@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.antelope.goodbrother.R;
 import com.antelope.goodbrother.config.Constants;
 import com.antelope.goodbrother.config.RouterConfig;
-import com.cylty.zhongmukeji.utils.NetUtil;
+import com.cylty.zmkj.utils.NetUtil;
 import com.nirvana.zmkj.widget.ShowMessageProxy;
 
 import java.io.IOException;

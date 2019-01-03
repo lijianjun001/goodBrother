@@ -31,6 +31,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     api 'com.sina.weibo.sdk:core:4.1.0:openDefaultRelease@aar'
-    api project(':librarys')
+    api project(':lib_common')
     api project(':lib_base')
 }

@@ -1,6 +1,7 @@
 package com.nirvana.zmkj.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
@@ -17,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 
 public abstract class BaseRecyclerAdapter<D, H extends BaseRecyclerAdapter.BaseHolder> extends DelegateAdapter.Adapter<H> {
-    protected Activity activity;
+    protected Context context;
     protected LayoutHelper layoutHelper;
     protected RecyclerView.LayoutParams layoutParams;
     protected List<D> data;
@@ -28,16 +29,16 @@ public abstract class BaseRecyclerAdapter<D, H extends BaseRecyclerAdapter.BaseH
         this.itemClickListener = itemClickListener;
     }
 
-    public BaseRecyclerAdapter(Activity activity, LayoutHelper layoutHelper, List<D> data) {
-        this(activity, layoutHelper, data, null);
+    public BaseRecyclerAdapter(Context context, LayoutHelper layoutHelper, List<D> data) {
+        this(context, layoutHelper, data, null);
     }
 
-    public BaseRecyclerAdapter(Activity activity, LayoutHelper layoutHelper, List<D> data, @NonNull RecyclerView.LayoutParams layoutParams) {
-        this.activity = activity;
+    public BaseRecyclerAdapter(Context context, LayoutHelper layoutHelper, List<D> data, @NonNull RecyclerView.LayoutParams layoutParams) {
+        this.context = context;
         this.layoutHelper = layoutHelper;
         this.data = data;
         this.layoutParams = layoutParams;
-        showMessageProxy = new ShowMessageProxy(activity);
+        showMessageProxy = new ShowMessageProxy(context);
     }
 
     @Override

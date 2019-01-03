@@ -12,6 +12,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new MainViewHolder2(this).getRootView());
+        setContentView(new MainViewHolder(this).getRootView());
     }
 }

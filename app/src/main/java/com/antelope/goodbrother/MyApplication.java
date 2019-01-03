@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.antelope.goodbrother.config.Constants;
-import com.nirvana.lib_share.ShareThirdPart;
+import com.nirvana.share.ShareThirdPart;
 import com.nirvana.zmkj.base.BaseApplication;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;

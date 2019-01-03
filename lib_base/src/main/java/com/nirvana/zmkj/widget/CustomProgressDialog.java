@@ -8,7 +8,7 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cylty.zhongmukeji.utils.StringUtils;
+import com.cylty.zmkj.utils.StringUtils;
 import com.nirvana.ylmc.lib_base.R;
 
 public class CustomProgressDialog extends Dialog {

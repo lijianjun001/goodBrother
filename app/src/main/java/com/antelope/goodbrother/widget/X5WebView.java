@@ -16,7 +16,6 @@ import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
 public class X5WebView extends WebView {
-    TextView title;
     private WebViewClient client = new WebViewClient() {
         /**
          * 防止加载网页时调起系统浏览器

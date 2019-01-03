@@ -2,7 +2,7 @@ package com.antelope.goodbrother.account;
 
 
 import com.antelope.goodbrother.config.Constants;
-import com.cylty.zhongmukeji.utils.GsonUtils;
+import com.cylty.zmkj.utils.GsonUtils;
 import com.nirvana.zmkj.manager.SharePreferenceManager;
 
 import org.greenrobot.eventbus.EventBus;

@@ -29,7 +29,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.antelope.goodbrother.R;
 import com.antelope.goodbrother.config.RouterConfig;
 import com.antelope.goodbrother.widget.X5WebView;
-import com.cylty.zhongmukeji.utils.StringUtils;
+import com.cylty.zmkj.utils.StringUtils;
 import com.nirvana.zmkj.base.BaseActivity;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
 import com.tencent.smtt.export.external.interfaces.JsResult;

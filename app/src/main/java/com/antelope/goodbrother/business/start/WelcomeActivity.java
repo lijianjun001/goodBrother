@@ -10,7 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.antelope.goodbrother.R;
 import com.antelope.goodbrother.config.Constants;
 import com.antelope.goodbrother.config.RouterConfig;
-import com.cylty.zhongmukeji.utils.BitmapUtil;
+import com.cylty.zmkj.utils.BitmapUtil;
 import com.nirvana.zmkj.base.BaseActivity;
 import com.nirvana.zmkj.manager.SharePreferenceManager;
 

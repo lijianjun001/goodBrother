@@ -3,7 +3,7 @@ package com.nirvana.zmkj.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.cylty.zhongmukeji.utils.StringUtils;
+import com.cylty.zmkj.utils.StringUtils;
 import com.nirvana.zmkj.base.BaseApplication;
 
 

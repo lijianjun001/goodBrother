@@ -4,7 +4,7 @@ import com.antelope.goodbrother.account.AccountManager;
 import com.antelope.goodbrother.config.Constants;
 import com.antelope.goodbrother.http.java.service.CustomService;
 import com.antelope.goodbrother.http.java.service.SystemService;
-import com.cylty.zhongmukeji.myOkhttp.converter.MyGsonConverterFactory;
+import com.cylty.zmkj.okHttp.converter.MyGsonConverterFactory;
 
 import java.util.concurrent.TimeUnit;
 

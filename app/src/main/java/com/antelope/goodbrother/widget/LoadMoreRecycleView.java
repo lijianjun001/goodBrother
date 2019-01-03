@@ -1,6 +1,5 @@
 package com.antelope.goodbrother.widget;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 
@@ -18,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class LoadMoreRecycleView extends RecyclerView {
     private List<String> loadData;
     private DelegateAdapter delegateAdapter;
-    private LoadMoreRecycleScrollListener.OnLoadMoreListener onLoadMoreListener;
-    private LoadMoreRecycleScrollListener loadMoreRecycleScrollListener;
+    private LoadMoreRecycleScrollListener.OnLoadMoreListener onLoadMoreListener;//外部传入的
+    private LoadMoreRecycleScrollListener loadMoreRecycleScrollListener;//内部实例化的
 
     public void setOnLoadMoreListener(LoadMoreRecycleScrollListener.OnLoadMoreListener onLoadMoreListener) {
         this.onLoadMoreListener = onLoadMoreListener;
@@ -27,23 +26,24 @@ public class LoadMoreRecycleView extends RecyclerView {
 
     public LoadMoreRecycleView(Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public LoadMoreRecycleView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     public LoadMoreRecycleView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
+        init(context);
     }
 
 
-    public void init() {
+    private void init(Context context) {
         loadData = new ArrayList<>();
         loadData.add(FootViewAdapter.LOADING);
+        footViewAdapter = new FootViewAdapter(context, new LinearLayoutHelper(0), loadData);
         VirtualLayoutManager virtualLayoutManager = new VirtualLayoutManager(getContext());
         delegateAdapter = new DelegateAdapter(virtualLayoutManager);
         this.setLayoutManager(virtualLayoutManager);
@@ -64,25 +64,35 @@ public class LoadMoreRecycleView extends RecyclerView {
         addOnScrollListener(loadMoreRecycleScrollListener);
     }
 
-    public void addContentAdapter(BaseRecyclerAdapter baseRecyclerAdapter) {
+    public void setContentAdapter(BaseRecyclerAdapter baseRecyclerAdapter) {
         delegateAdapter.addAdapter(baseRecyclerAdapter);
         delegateAdapter.notifyDataSetChanged();
     }
 
+    boolean hasAddFooter = false;
+
     public void setTotalPage(int totalPage) {
         loadMoreRecycleScrollListener.setTotalPage(totalPage);
+        if (totalPage > 0 && !hasAddFooter) {
+            hasAddFooter = true;
+            delegateAdapter.addAdapter(footViewAdapter);
+        }
     }
 
-    FootViewAdapter footViewAdapter;
-
-    public void addFooter(Activity activity) {
-        footViewAdapter = new FootViewAdapter(activity, new LinearLayoutHelper(0), loadData);
-        delegateAdapter.addAdapter(footViewAdapter);
-    }
+    private FootViewAdapter footViewAdapter;
 
     private void complete() {
+        if (footViewAdapter != null) {
+            loadData.clear();
+            loadData.add(FootViewAdapter.LOAD_COMPLETE);
+            footViewAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void resetPage() {
+        loadMoreRecycleScrollListener.resetPage();
         loadData.clear();
-        loadData.add(FootViewAdapter.LOAD_COMPLETE);
-        footViewAdapter.notifyDataSetChanged();
+        loadData.add(FootViewAdapter.LOADING);
+        delegateAdapter.removeAdapter(footViewAdapter);
     }
 }

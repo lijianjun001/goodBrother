@@ -1,6 +1,6 @@
 package com.antelope.goodbrother.widget;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +18,8 @@ public class FootViewAdapter extends BaseRecyclerAdapter<String, FootViewAdapter
     public static final String LOADING = "loading";
     public static final String LOAD_COMPLETE = "loadComplete";
 
-    public FootViewAdapter(Activity activity, LayoutHelper layoutHelper, List<String> data) {
-        super(activity, layoutHelper, data);
+    public FootViewAdapter(Context context, LayoutHelper layoutHelper, List<String> data) {
+        super(context, layoutHelper, data);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class FootViewAdapter extends BaseRecyclerAdapter<String, FootViewAdapter
 
     @Override
     public FootViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new FootViewHolder(LayoutInflater.from(activity).inflate(R.layout.recycview_footer, parent, false));
+        return new FootViewHolder(LayoutInflater.from(context).inflate(R.layout.recycview_footer, parent, false));
     }
 
     public static class FootViewHolder extends BaseRecyclerAdapter.BaseHolder {

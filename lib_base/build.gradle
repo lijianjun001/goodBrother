@@ -23,7 +23,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api project(':librarys')
+    api project(':lib_common')
     api 'com.umeng.sdk:common:latest.integration'
     api 'com.umeng.sdk:analytics:latest.integration'
     testImplementation 'junit:junit:4.12'

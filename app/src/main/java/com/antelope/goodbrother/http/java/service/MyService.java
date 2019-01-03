@@ -2,7 +2,7 @@ package com.antelope.goodbrother.http.java.service;
 
 
 import com.antelope.goodbrother.http.java.body.PersonalBody;
-import com.cylty.zhongmukeji.myOkhttp.ResultModel;
+import com.cylty.zmkj.okHttp.ResultModel;
 
 import retrofit2.http.Body;
 import retrofit2.http.POST;

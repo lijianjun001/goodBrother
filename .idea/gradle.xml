@@ -11,9 +11,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib_banner" />
             <option value="$PROJECT_DIR$/lib_base" />
+            <option value="$PROJECT_DIR$/lib_common" />
             <option value="$PROJECT_DIR$/lib_share" />
-            <option value="$PROJECT_DIR$/librarys" />
-            <option value="$PROJECT_DIR$/web" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -2,7 +2,7 @@ package com.nirvana.zmkj.base;
 
 import android.app.Activity;
 
-import com.cylty.zhongmukeji.myOkhttp.RxManager;
+import com.cylty.zmkj.okHttp.RxManager;
 import com.nirvana.zmkj.widget.ShowMessageProxy;
 
 public class BasePresenter {

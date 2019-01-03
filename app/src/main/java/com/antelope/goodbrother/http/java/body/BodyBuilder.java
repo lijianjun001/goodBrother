@@ -1,6 +1,6 @@
 package com.antelope.goodbrother.http.java.body;
 
-import com.cylty.zhongmukeji.utils.SysInfoUtil;
+import com.cylty.zmkj.utils.SysInfoUtil;
 import com.nirvana.zmkj.base.BaseApplication;
 
 /**
