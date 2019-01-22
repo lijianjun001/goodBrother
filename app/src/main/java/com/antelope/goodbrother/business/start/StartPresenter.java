@@ -3,6 +3,7 @@ package com.antelope.goodbrother.business.start;
 import android.app.Activity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.antelope.goodbrother.business.webData.WebDataActivity;
 import com.antelope.goodbrother.config.Constants;
 import com.antelope.goodbrother.config.RouterConfig;
 import com.antelope.goodbrother.utils.RouterUtil;
@@ -19,7 +20,8 @@ public class StartPresenter extends BasePresenter {
     public void gotoNextPage() {
         boolean isFirstIn = SharePreferenceManager.getInstance().getBoolean(Constants.IS_FIRST_IN, true);
         if (!isFirstIn) {
-            ARouter.getInstance().build(RouterConfig.ACTIVITY_MAIN).navigation();
+//            ARouter.getInstance().build(RouterConfig.ACTIVITY_MAIN).navigation();
+            RouterUtil.openActivity(mActivity, WebDataActivity.class);
         } else {
             RouterUtil.openActivity(mActivity, WelcomeActivity.class);
         }

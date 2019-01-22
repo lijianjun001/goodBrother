@@ -15,9 +15,20 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi-v7a', 'x86', 'x86_64', 'arm64-v8a'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "8620c8059a65516c1df2197e", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+        vectorDrawables.useSupportLibrary = true
     }
     signingConfigs {
         release {
@@ -53,23 +64,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    defaultConfig {
-        applicationId "com.antelope.goodbrother" //JPush上注册的包名.
-
-        ndk {
-            //选择要添加的对应cpu类型的.so库。
-            abiFilters  'armeabi-v7a',  'x86', 'x86_64','arm64-v8a'
-        }
-
-        manifestPlaceholders = [
-                JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "8620c8059a65516c1df2197e", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
-        ]
-    }
-    defaultConfig {
-        vectorDrawables.useSupportLibrary = true
-    }
     externalNativeBuild {
         cmake {
             path "CMakeLists.txt"
@@ -101,6 +95,6 @@ dependencies {
     api 'com.alibaba:arouter-api:1.4.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     api 'com.aliyun.ams:alicloud-android-hotfix:3.2.6'
-
+    api 'org.jsoup:jsoup:1.9.2'
 
 }

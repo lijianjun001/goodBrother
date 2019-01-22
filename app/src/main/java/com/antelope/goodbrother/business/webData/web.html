@@ -1,0 +1,247 @@
+<!doctype html>
+<html ng-app="mainApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" href="http://192.168.31.200:10210/weixin/images/favicon.ico">
+    <title ng-controller="PageTitle" ng-bind="(title ? title: '众牧宝平台')"></title>
+    <link rel="stylesheet" href="http://192.168.31.200:10210/weixin/css/bind.min.css?v=2.2.20">
+    <link rel="stylesheet" href="http://192.168.31.200:10210/weixin/css/emubao.css?v=2.2.20">
+    <link href="/content/css/font.css" rel="stylesheet">
+</head>
+<body>
+<div id="wx_pic" style="margin: 0 auto; display: none;">
+    <img src="http://192.168.31.200:10210/weixin/images/ShareIco_300x300.jpg">
+</div>
+<div>
+    <div class="iphonetilte" style="display: none;">
+        <img src="http://192.168.31.200:10210/weixin/images/back-black.png" alt="">
+        <p>首页</p>
+    </div>
+    <div ng-view class="myview">
+    </div>
+</div>
+<!--分享层-->
+<div class="share-div-shen">
+    <i class="share-new-ico"></i>
+</div>
+<!--弹出层 Start-->
+<div class="commoncover alertA" alerta="" style="display: none;">
+    <div class="commondiv">
+        <img src="http://192.168.31.200:10210/weixin/images/commonbg.png" alt="">
+        <img class="guoqing" src="http://192.168.31.200:10210/weixin/images/commonqi.png" alt="友情提示">
+        <p class="text ng-binding" id="alert_txt"></p>
+        <a href="javascript:void(0);" class="xiaci" style="display:none;">下次吧</a>
+        <a href="javascript:void(0);" style="display:none;">去设置</a>
+        <a href="javascript:void(0);" class="know yesBtn" onclick="$.emubao.close(); return false;" data-value="1">确定</a>
+    </div>
+</div>
+<!--弹出层 End-->
+<!--弹出跳转-->
+<div class="commoncover alertB" alerta="" style="display: none;">
+    <div class="commondiv">
+        <img src="http://192.168.31.200:10210/weixin/images/commonbg.png" alt="">
+        <img class="guoqing" src="http://192.168.31.200:10210/weixin/images/commonqi.png" alt="友情提示">
+        <p class="text ng-binding" id="alertB_txt"></p>
+        <a href="javascript:void(0);" class="xiaci" style="display:none;">下次吧</a>
+        <a href="javascript:void(0);" style="display:none;">去设置</a>
+        <a href="javascript:void(0);" id="Jumpbtn" class="know yesBtn">确定</a>
+    </div>
+</div>
+<!--弹出跳转带取消-->
+<div class="commoncover alertBWithCancel emubao-new-alert-withcancel" id="withcancel-alert" alerta="" style="display: none;">
+    <div class="commondiv">
+        <img src="http://192.168.31.200:10210/weixin/images/commonbg.png" alt="友情提示">
+        <img class="guoqing" src="http://192.168.31.200:10210/weixin/images/commonqi.png" alt="">
+        <p class="text ng-binding" id="alertB_txtWithCancel"></p>
+        <a href="javascript:void(0);" id="JumpbtnWithCancel" class="xiaci yesBtn" style="display:block;">确定</a>
+        <a href="javascript:void(0);" class="yesBtn btnAlertCancel" style="display:block;">取消</a>
+        <a href="javascript:void(0);" class="know yesBtn" onclick="$.emubao.close();  return false;" data-value="1" style="display:none;">确定</a>
+    </div>
+</div>
+<!--弹层 分享-->
+<div class="contalertpay" id="PayShare" style="display: none;">
+    <div class="alertBdpay">
+        <span class="success-ico"></span>
+        <span class="success-tiitle">购羊成功</span>
+        <p class="contentpay top">邀请伙伴购羊，得<i>5</i>串！</p>
+        <p class="contentpay" style="height: 22px;"></p>
+        <div class="alertBdpay-btn clearfix">
+            <span class="zanbufenxiang" id="nosharepay" onclick="document.getElementById('PayShare').style.display='none'">暂不分享</span>
+            <span class="xianzaifenxang" id="btnShareEx">现在就去</span>
+        </div>
+    </div>
+</div>
+<!--红包 弹层-->
+<div class="RedalertDiv" style="display: none;">
+    <div class="alertBdpay">
+        <p class="tellke-cfengred"> <i></i> </p>
+        <img id="mybouns-photo" class="head-ico" src="">
+        <p id="mybouns-nickname" class="name-songhogbao">美羊羊</p>
+        <p class="songhogbao-title">给你发了一个金羊红包</p>
+        <p class="name-songhogbao">恭喜发财.红包拿来!</p>
+        <span id="btnGetMyBouns" class="Chaihongbaobtn">拆红包</span>
+    </div>
+</div>
+<!--活动提示层-->
+<div class="contalertactiveice" style="display: none;">
+    <div class="alertBdpay">
+        <p class="title-actievwe"> 购羊规则重大调整 <span class="cengchahao"></span> </p>
+        <p class="content-active">10月12日起,牧场主商铺正式改为周期21天,每只收益5.2元,周1、3、5上午10点开标,每期200只,每只可抵5串,送3串,每人每期限购10只。</p>
+        <p class="content-active">牧场主买羊改为,周2、5上午10点开标,每期1000只,每只可抵10串,送10串。每人限购50只。</p>
+    </div>
+</div>
+<!--Picc 保险-->
+<div class="ui-mask" id="baoxiandan" onclick="baoxianclose()" style="-webkit-transform-origin: 0px 0px 0px; opacity: 1; -webkit-transform: scale(1, 1); display: none;">
+    <div class="maskwrapper" style="height: 480px;">
+        <img id="payhsirc" src="http://192.168.31.200:10210/weixin/images/D343776D2AC92CF5AFBD7913B4FAE282.png" style="width: 320px; margin-top: 130.94781682641107px;">
+    </div>
+</div>
+<!--Picc 保险 End-->
+<!--遮罩层 Start-->
+<div class="loading" style="display: -webkit-box;">
+    <div class="sk-spinner sk-spinner-fading-circle">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
+    </div>
+</div>
+<!--遮罩层 End-->
+<!--赎回密码-->
+<div class="yanzhemgma-ceng" style="display: none;">
+    <div class="yama-shuceng">
+        <i class="close-yanzhemgma-ceng"></i>
+        <p class="yama-shuceng-title">赎回密码</p>
+        <p class="yanzhemgma-ceng-cin"></p>
+        <p class="yanzhemgma-ceng-price"></p>
+        <p class="input-yanzhemga"> <input id="txtRedeemPassword" type="password" maxlength="6" class="yanrmgma" placeholder=""> </p>
+        <span class="error-akosmn"></span>
+    </div>
+</div>
+<!--赎回密码End-->
+<!--送手把肉-->
+<div id="songrouContanier" class="chunjiebuysheep-meth" style="display: none;">
+    <div class="alertBdpay">
+        <h3>春节买羊送羊肉</h3>
+        <div class="chunjiebuysheep-meth-txt">
+            <p>2016年1月23日-1月31日，买羊每累计满50只，送4kg手把羊肉礼盒一个，长期羊与短期羊均记为有效。</p>
+            <p>特别说明:</p>
+            <p>1.赠送的羊红包不计入统计范围;</p>
+            <p>2.只统计活动期间买羊数量;</p>
+            <p>3.2月1日发货，单号统一发布到官方QQ群;</p>
+            <p>4.本活动最终解释权归众牧宝所有.</p>
+        </div>
+        <span class="close-chunjiebuysheep" onclick="document.getElementById('songrouContanier').style.display='none'">关闭</span>
+    </div>
+</div>
+<!--送手把肉 End-->
+<!--抢羊领大闸蟹------------------------>
+<div class="happycover" style="display:none;">
+    <div class="happydiv">
+        <div class="happydiv-img">
+            <a href="#/Found">点击领取</a>
+        </div>
+        <img src="http://192.168.31.200:10210/weixin/images/paymentxian.png?2.2.20" alt="">
+        <img class="happyclose" src="http://192.168.31.200:10210/weixin/images/wrong.png?2.2.20" alt="">
+    </div>
+</div>
+<!--抢羊领大闸蟹 End------------------------>
+<!--获得手把肉提示提示层-->
+<div id="getshoubarouContanier" class="Get-shoubaorou" style="display: none;">
+    <div class="alertBdpay">
+        <h3>恭喜，您获得手把肉一盒</h3>
+        <div class="chunjiebuysheep-meth-txt">
+            <p> 您在2016年1月23日-31日的活动中， 已买够50只羊，获得正宗锡盟手把羊肉 礼盒一个，我们会即刻安排发货，请保 持手机通畅。 </p>
+            <p>您可以在个人中心，商品订单中查看您的订单。</p>
+        </div>
+        <div class="close-chunjiebuysheep-div clearfix">
+            <span class="close-chunjiebuysheep" onclick="location.href='#/AddressList?operation=12&amp;operationId=shoubarou';">马上领取</span>
+            <span class="close-chunjiebuysheep-no" onclick="document.getElementById('getshoubarouContanier').style.display='none'">关闭</span>
+        </div>
+    </div>
+</div>
+<!--获得手把肉提示提示层 End-->
+<!--新浪认证-->
+<div class="SinaRenzheng-Tan" style="display: none;">
+    <div class="SinaRenzheng-Tan-con">
+        <a href="#/Certification"></a>
+        <span onclick="location.href='/Account/Logoff'">切换账号</span>
+    </div>
+</div>
+<!--新浪认证 End-->
+<!--汇付实名认证------------------------->
+<div class="HFRenzheng-Tan" style="display:none;">
+    <div class="HFRenzheng-Tan-con">
+        <a class="bg" href="/Customer/HfAuth"></a>
+        <!---->
+    </div>
+</div>
+<!--注册成功弹出视图-->
+<div class="registercover" style="display:none">
+    <div class="registerdiv">
+        <img src="http://192.168.31.200:10210/weixin/images/dui1.png?2.2.20" alt="">
+        <p>注册成功！</p>
+        <p>别忘了关注众牧宝微信公众平台</p>
+        <img src="http://192.168.31.200:10210/weixin/images/registererweima.png?2.2.20" alt="">
+        <p>长按并识别二维码关注</p>
+    </div>
+</div>
+<!--注册成功弹出视图End-->
+<!--首页流程弹窗 str3.0-->
+<!--<div class="index-progress-pop" style="display:none;">        <div class="index-progress-div-content">            <div class="index-progress-div">                <div class="index-progress-box">                    <div class="progress-div progress-div-img">                        <img class="img1" src="http://192.168.31.200:10210/weixin/images/index/index-progress-zhuce1.png" alt="" />                        <img class="img2" style="display:none;" src="http://192.168.31.200:10210/weixin/images/index/index-progress-zhuce2.png" alt="" />                        <span id="sssss">立即注册</span>                    </div>                    <div class="progress-div progress-div2 ">                        <p></p>                    </div>                    <div class="progress-div progress-div-img">                        <img  class="img1" src="http://192.168.31.200:10210/weixin/images/index/index-progress-shiming1.png" alt="" />                        <img  class="img2" style="display:none;" src="http://192.168.31.200:10210/weixin/images/index/index-progress-shiming2.png" alt="" />                        <span>身份验证</span>                    </div>                    <div class="progress-div progress-div2">                        <p></p>                    </div>                    <div class="progress-div progress-div-img">                        <img  class="img1" src="http://192.168.31.200:10210/weixin/images/index/index-progress-bangka1.png" alt=""  />                        <img  class="img2" style="display:none;" src="http://192.168.31.200:10210/weixin/images/index/index-progress-bangka2.png" alt="" />                        <span>绑卡</span>                    </div>                    <div class="progress-div progress-div2">                        <p></p>                    </div>                    <div class="progress-div progress-div-img">                        <img  class="img1" src="http://192.168.31.200:10210/weixin/images/index/index-progress-yangyang1.png" alt="" />                        <img  class="img2" style="display:none;" src="http://192.168.31.200:10210/weixin/images/index/index-progress-yangyang2.png" alt="" />                        <span>开始养羊</span>                    </div>                </div>                <a id="goToDo"></a>            </div>            <img class="index-progress-close" src="http://192.168.31.200:10210/weixin/images/index/new-plan-pop-close.png" alt="" />        </div>    </div>-->
+<!--首页流程弹窗end3.0-->
+<!--首页流程弹窗新的改版-->
+<div class="index-progress-pop" style="display:none;">
+    <div class="index-progress-div-content">
+        <div class="index-progress-div">
+            <img class="index-progress-img" src="http://192.168.31.200:10210/weixin/images/index/index-progress-img1.png" alt="">
+            <div class="index-progress-box">
+                <div class="progress-div">
+                    <div>
+                        <p>立即注册</p>
+                        <span>10元红包到账</span>
+                    </div>
+                </div>
+                <div class="progress-div">
+                    <div>
+                        <p>实名认证</p>
+                        <span>30元红包到账</span>
+                    </div>
+                </div>
+                <div class="progress-div">
+                    <div>
+                        <p>绑定银行卡</p>
+                        <span>40元红包到账</span>
+                    </div>
+                </div>
+                <div class="progress-div">
+                    <div>
+                        <p>开始养羊</p>
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0);" id="goToDo"></a>
+        </div>
+        <img class="index-progress-close" src="http://192.168.31.200:10210/weixin/images/index/index-progress-close.png" alt="">
+    </div>
+</div>
+<script type="text/javascript">        var setings = {            ShareSuccess: 'http://192.168.31.200:46018/Customer/ShareSuccess',            PayError: 'http://192.168.31.200:46018/Emubao/WebApp#/PayError',            PayInteractive: 'http://192.168.31.200:46018/Emubao/PayInteractive',            AppID: 'wx1ac9a18957d9b68e',            ResourceAddress: 'http://192.168.31.200:10210/weixin/',            UnionPay: 'http://192.168.31.200:46018/Emubao/UnionPay',            Platform: '03',            ShareBuySheep: 'http://192.168.31.200:46018/Emubao/WebApp#/SharePage',            ShareLibraryProduct: 'http://192.168.31.200:46018/Emubao/WebApp#/LibraryShare',            PaySuccess: 'http://192.168.31.200:46018/Emubao/WebApp#/PaySuccess',            ShareTime: '',            ShareSignature: '',            CurrentUserSign: '',            CurrentUserPhoto: 'http://s.emubao.com/weixin/images/share-photo1.jpg?v=2016',            CurrentUserCode: ''        };        var resourceUrl = 'http://192.168.31.200:10210/weixin/';        var ShiYiBegin = new Date("2018/9/11 0:00:00");        var ShiYiEnd = new Date("2018/10/28 23:59:59");    </script>
+<script src="http://192.168.31.200:10210/weixin/js/bind.min.js?2.2.20"></script>
+<script src="http://192.168.31.200:10210/weixin/js/emubao.js?2.2.20"></script>
+<div style="display: none;">
+    <script src="https://s13.cnzz.com/z_stat.php?id=1274094920&amp;web_id=1274094920" language="JavaScript"></script>
+</div>
+<script type="text/javascript">    var _czc = _czc || [];    _czc.push(["_setAccount", "1274094920"]);    function cnzz(page, action, lable) {        _czc.push(["_trackEvent", page, action]);    }    $("#goToDo").click(function () {        $('.index-progress-pop').hide();    });    $('.index-progress-close').click(function () {        $('.index-progress-pop').hide();    });</script>
+</body>
+</html>

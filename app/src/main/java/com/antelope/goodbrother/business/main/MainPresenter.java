@@ -1,6 +1,7 @@
 package com.antelope.goodbrother.business.main;
 
 import android.app.Activity;
+import android.util.LruCache;
 
 import com.nirvana.zmkj.base.BasePresenter;
 

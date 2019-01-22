@@ -3,13 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".business.main.MainActivity">
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/tel_et"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:hint="请输入电话"
+        android:textColor="#333333"
+        android:textSize="@dimen/ds26" />
 
-  </androidx.recyclerview.widget.RecyclerView>
+    <EditText
+        android:id="@+id/password_et"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds100"
+        android:hint="请输入电话"
+        android:textColor="#333333"
+        android:textSize="@dimen/ds26" />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:textColor="@color/black"
+        android:textSize="@dimen/ds30" />
 
 </LinearLayout>

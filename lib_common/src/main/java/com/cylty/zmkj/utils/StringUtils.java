@@ -1,5 +1,11 @@
 package com.cylty.zmkj.utils;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public class StringUtils {
     public static boolean isEmpty(String str) {
         if (str == null) {
@@ -89,5 +95,21 @@ public class StringUtils {
         StringBuffer stringBuffer=new StringBuffer(phoneNum.substring(0, 3));
         stringBuffer.append("****").append(phoneNum.substring(7, 11));
         return stringBuffer.toString();
+    }
+
+    public static String getString(InputStream inputStream) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        String line;
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+        while ((line = br.readLine()) != null) {
+            sb.append(line);
+        }
+        return sb.toString();
+    }
+
+    public static InputStream getInputStream(String str){
+        InputStream is = new ByteArrayInputStream(str.getBytes());
+        return is;
     }
 }

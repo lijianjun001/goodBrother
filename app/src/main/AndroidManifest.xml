@@ -49,6 +49,9 @@
         <activity
             android:name=".business.start.WelcomeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".business.webData.WebDataActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

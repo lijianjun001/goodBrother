@@ -28,8 +28,11 @@ public class AccountManager {
     }
 
     public AccountInfo getAccountInfo() {
-        String accountInfo = SharePreferenceManager.getInstance().getString(Constants.USER_INFO);
-        this.accountInfo = GsonUtils.fromJson(accountInfo, AccountInfo.class);
+        if (accountInfo == null) {
+            String accountInfo = SharePreferenceManager.getInstance().getString(Constants.USER_INFO);
+            this.accountInfo = GsonUtils.fromJson(accountInfo, AccountInfo.class);
+        }
+
         return this.accountInfo;
     }
 
