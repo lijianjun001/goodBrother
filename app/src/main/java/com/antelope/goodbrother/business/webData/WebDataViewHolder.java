@@ -25,10 +25,16 @@ public class WebDataViewHolder extends BaseViewHolder<WebDataPresenter> {
 
     @Override
     public void initContent(View contentView) {
-        EditText telEt=contentView.findViewById(R.id.tel_et);
-        EditText passEt=contentView.findViewById(R.id.password_et);
+        EditText telEt = contentView.findViewById(R.id.tel_et);
+        EditText passEt = contentView.findViewById(R.id.password_et);
         contentView.findViewById(R.id.login_btn).setOnClickListener(v -> {
-            presenter.postData(telEt.getText().toString(),passEt.getText().toString());
+            presenter.login(telEt.getText().toString(), passEt.getText().toString());
+        });
+        contentView.findViewById(R.id.main_btn).setOnClickListener(v -> {
+            presenter.login("13260213625", "123456");
+        });
+        contentView.findViewById(R.id.person_btn).setOnClickListener(v -> {
+            presenter.getProducts();
         });
     }
 }

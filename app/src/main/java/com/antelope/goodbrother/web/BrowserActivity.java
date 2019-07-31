@@ -77,7 +77,6 @@ public class BrowserActivity extends BaseActivity {
             webUrl = bundle.getString(RouterConfig.KEY_WEB_URL);
             webData = bundle.getString(RouterConfig.KEY_WEB_DATA);
         }
-        //
         try {
             if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 11) {
                 getWindow()

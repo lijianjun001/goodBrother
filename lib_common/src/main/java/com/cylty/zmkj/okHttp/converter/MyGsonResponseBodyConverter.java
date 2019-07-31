@@ -10,6 +10,8 @@ import com.google.gson.stream.JsonReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 
 import okhttp3.MediaType;
@@ -33,7 +35,13 @@ public class MyGsonResponseBodyConverter<T> implements Converter<ResponseBody, T
     @Override
     public T convert(ResponseBody value) throws IOException {
         String response = value.string();
-        Log.d("MyGsonResponse", response);
+        try {
+            Method method = this.getClass().getMethod("convert", ResponseBody.class);
+            Type t = method.getGenericReturnType();
+            Log.d("javaResponse::" + t.getTypeName(), response);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
         ResultModel<String> re = mGson.fromJson(response, ResultModel.class);
         //关注的重点，自定义响应码中非100的情况，一律抛出ApiException异常。
         //这样，我们就成功的将该异常交给onError()去处理了。

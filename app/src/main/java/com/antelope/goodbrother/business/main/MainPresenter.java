@@ -27,7 +27,7 @@ public class MainPresenter extends BasePresenter {
                 mainEntities.add(new MainEntity("", "菜鸟" + pageIndex, "http://www.runoob.com/"));
             }
             for (int i = 0; i < 10; i++) {
-                mainEntities.add(new MainEntity("", "flutter" + pageIndex, "https://flutter.io/docs/get-started/install/macos"));
+                mainEntities.add(new MainEntity("", "flutter" + pageIndex, ""));
             }
             mainModel.setList(mainEntities);
             EventBus.getDefault().post(mainModel);
@@ -36,4 +36,6 @@ public class MainPresenter extends BasePresenter {
         }
 
     }
+
+
 }

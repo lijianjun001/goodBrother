@@ -30,4 +30,22 @@
         android:textColor="@color/black"
         android:textSize="@dimen/ds30" />
 
+    <Button
+        android:id="@+id/main_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="首页数据"
+        android:textColor="@color/black"
+        android:textSize="@dimen/ds30"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/person_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="个人中心数据"
+        android:textColor="@color/black"
+        android:textSize="@dimen/ds30"
+        android:visibility="gone" />
+
 </LinearLayout>

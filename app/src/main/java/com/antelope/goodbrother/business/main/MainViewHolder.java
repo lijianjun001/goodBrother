@@ -1,5 +1,7 @@
 package com.antelope.goodbrother.business.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.view.View;
 
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
@@ -56,6 +58,9 @@ public class MainViewHolder extends BaseViewHolder<MainPresenter> {
             }
         });
         presenter.getGiftIndex(Page.PAGE_INIT);
+
+        Intent intent = new Intent().addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        activity.sendBroadcast(intent);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

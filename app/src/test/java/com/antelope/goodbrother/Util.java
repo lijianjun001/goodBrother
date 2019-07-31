@@ -5,17 +5,18 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 
 public class Util {
-//    @Test
-//    public void aa() {
-//        float oneDimen = (1660f / 800f);
-//        for (int i = 1; i <= 1000; i++) {
-//            DecimalFormat decimalFormat = new DecimalFormat(".0");//构造方法的字符格式这里如果小数不足2位,会以0补足.
-//            System.out.println("<dimen name=\"ds" + i + "\">" + decimalFormat.format(oneDimen * i) + "px</dimen>");
-//        }
-//    }
+    @Test
+    public void getDimen() {
+        float oneDimen = (1660f / 800f);
+        for (int i = 1; i <= 1000; i++) {
+            DecimalFormat decimalFormat = new DecimalFormat(".0");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+            System.out.println("<dimen name=\"ds" + i + "\">" + decimalFormat.format(oneDimen * i) + "px</dimen>");
+        }
+    }
 
     public String className = "WebData";
     String packageName = (className.charAt(0)+"").toLowerCase() + className.substring(1, className.length());
