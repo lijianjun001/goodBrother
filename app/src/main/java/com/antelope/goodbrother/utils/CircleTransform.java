@@ -1,6 +1,5 @@
 package com.antelope.goodbrother.utils;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
@@ -9,10 +8,14 @@ import android.graphics.Paint;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
+import java.security.MessageDigest;
+
+import androidx.annotation.NonNull;
+
 public class CircleTransform extends BitmapTransformation {
 
-    public CircleTransform(Context context) {
-        super(context);
+    public CircleTransform() {
+        super();
     }
 
     @Override
@@ -31,9 +34,6 @@ public class CircleTransform extends BitmapTransformation {
         Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
 
         Bitmap result = pool.get(size, size, Bitmap.Config.ARGB_8888);
-        if (result == null) {
-            result = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-        }
 
         Canvas canvas = new Canvas(result);
         Paint paint = new Paint();
@@ -44,10 +44,9 @@ public class CircleTransform extends BitmapTransformation {
         return result;
     }
 
+
     @Override
-    public String getId() {
-        return getClass().getName();
+    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+
     }
-
-
 }

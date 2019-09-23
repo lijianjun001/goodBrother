@@ -25,7 +25,7 @@ public class MainAdapter extends BaseRecyclerAdapter<MainEntity, MainHolder> {
     protected void covert(MainHolder holder, RecyclerView.LayoutParams layoutParams, int position) {
 
         MainEntity mainEntity = data.get(position);
-        Glide.with(context).load(mainEntity.getIcon()).placeholder(R.drawable.default_square).into(holder.icon);
+        Glide.with(context).load(mainEntity.getIcon()).into(holder.icon);
         holder.titleTv.setText(mainEntity.getTitle());
         holder.titleTv.setOnClickListener(v -> {
             ARouter.getInstance().build(RouterConfig.ACTIVITY_WEB).withString(RouterConfig.KEY_WEB_URL, mainEntity.getUrl()).navigation();

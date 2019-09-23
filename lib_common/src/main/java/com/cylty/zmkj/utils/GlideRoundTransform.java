@@ -1,6 +1,5 @@
 package com.cylty.zmkj.utils;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -10,6 +9,10 @@ import android.graphics.RectF;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+
+import java.security.MessageDigest;
+
+import androidx.annotation.NonNull;
 
 /**
  * Glide 圆角 Transform
@@ -21,21 +24,18 @@ public class GlideRoundTransform extends BitmapTransformation {
 
     /**
      * 构造函数 默认圆角半径 4dp
-     *
-     * @param context Context
      */
-    public GlideRoundTransform(Context context) {
-        this(context, 4);
+    public GlideRoundTransform() {
+        this(4);
     }
 
     /**
      * 构造函数
      *
-     * @param context Context
      * @param dp 圆角半径
      */
-    public GlideRoundTransform(Context context, int dp) {
-        super(context);
+    public GlideRoundTransform(int dp) {
+        super();
         radius = Resources.getSystem().getDisplayMetrics().density * dp;
     }
 
@@ -62,8 +62,8 @@ public class GlideRoundTransform extends BitmapTransformation {
     }
 
     @Override
-    public String getId() {
-        return getClass().getName() + Math.round(radius);
+    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+
     }
 }
 

@@ -1,24 +1,23 @@
 package com.antelope.goodbrother.utils;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
+import android.util.Log;
+
+import com.cylty.zmkj.BuildConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-import androidx.core.app.ActivityCompat;
-
 public class CalendarReminderUtils {
-    private static final String ACCOUNT_NAME = "zmb";
+    private static final String ACCOUNT_NAME = "众牧宝";
 
     /**
      * 使用以下Uri时，Android版本>=14; 注意引用包路径：android.provider.CalendarContract下的；
@@ -34,73 +33,88 @@ public class CalendarReminderUtils {
     public static final String[] EVENTS_COLUMNS = new String[]{CalendarContract.Events._ID,
             CalendarContract.Events.CALENDAR_ID, CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION,
             CalendarContract.Events.EVENT_LOCATION, CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND,
-            CalendarContract.Events.EVENT_TIMEZONE, CalendarContract.Events.HAS_ALARM, CalendarContract.Events.ALL_DAY,
-            CalendarContract.Events.AVAILABILITY, CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.STATUS,};
+            CalendarContract.Events.EVENT_TIMEZONE, CalendarContract.Events.HAS_ALARM, CalendarContract.Events.STATUS,
+            CalendarContract.Events.HAS_ATTENDEE_DATA, CalendarContract.Events.RRULE};
 
     /**
      * 插入事件
      */
-    public static void insertEvent(Activity activity, EventModel model, int reqPermissionCode) {
-        if (checkCalendarPermission(activity)) {
-            String calId = queryCalId(activity, reqPermissionCode);
-            if (TextUtils.isEmpty(calId)) {
-                addAccount(activity);
-                insertEvent(activity, model, reqPermissionCode);
-                return;
-            }
-            // 插入事件
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(CalendarContract.Events.TITLE, model.getTitle());//标题
-            contentValues.put(CalendarContract.Events.DESCRIPTION, model.getContent());//备注
-            contentValues.put(CalendarContract.Events.EVENT_LOCATION, model.getLocation());//地点用需要可以添加)
-            contentValues.put(CalendarContract.Events.CALENDAR_ID, calId);
-            contentValues.put(CalendarContract.Events.DTSTART, model.getStartTime());//开始时间
-            contentValues.put(CalendarContract.Events.DTEND, model.getEndTime());//结束时间
-            contentValues.put(CalendarContract.Events.STATUS, CalendarContract.Events.STATUS_CONFIRMED);
-            contentValues.put(CalendarContract.Events.HAS_ATTENDEE_DATA, 1);
-            contentValues.put(CalendarContract.Events.HAS_ALARM, 1);//是否生效?
-            contentValues.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());//时区，必须有
-            Uri newEvent = activity.getContentResolver().insert(eventsUri, contentValues);
-            // 事件提醒的设定
-            long id = Long.parseLong(newEvent != null ? newEvent.getLastPathSegment() : "1");
-            ContentValues values = new ContentValues();
-            values.put(CalendarContract.Reminders.EVENT_ID, id);
-            values.put(CalendarContract.Reminders.MINUTES, "10");//提前提醒时间 min
-            values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);//提醒方式
-            activity.getContentResolver().insert(remindersUri, values);
-        } else {
-            requestCalendarPermission(activity, reqPermissionCode);
+    public static void insertEvent(Activity activity, EventModel model) {
+        String calId = queryCalenderId(activity);
+        if (TextUtils.isEmpty(calId)) {
+            addAccount(activity);
+            insertEvent(activity, model);
+            return;
         }
+        // 插入事件
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(EVENTS_COLUMNS[1], calId);
+        contentValues.put(EVENTS_COLUMNS[2], model.getTitle());//标题
+        contentValues.put(EVENTS_COLUMNS[3], model.getContent());//备注
+        contentValues.put(EVENTS_COLUMNS[4], "");//地点需要可以添加
+        contentValues.put(EVENTS_COLUMNS[5], model.getStartTime());//开始时间
+        contentValues.put(EVENTS_COLUMNS[6], model.getEndTime());//结束时间
+        contentValues.put(EVENTS_COLUMNS[7], TimeZone.getDefault().getID());//时区
+        contentValues.put(EVENTS_COLUMNS[8], 1);//是否提醒
+        contentValues.put(EVENTS_COLUMNS[9], CalendarContract.Events.STATUS_CONFIRMED);//状态确定
+        contentValues.put(EVENTS_COLUMNS[10], 1);//是否有出席者
+        contentValues.put(EVENTS_COLUMNS[11], "FREQ=DAILY;INTERVAL=1");//提醒方式每天提醒
 
+        Uri eventUri = activity.getContentResolver().insert(eventsUri, contentValues);
+        // 事件提醒的设定
+        String id = eventUri != null ? eventUri.getLastPathSegment() : "1";
+        ContentValues values = new ContentValues();
+        values.put(CalendarContract.Reminders.EVENT_ID, id);
+        values.put(CalendarContract.Reminders.MINUTES, 10);//提前提醒时间 min
+        values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);//提醒方式
+        Uri uri = activity.getContentResolver().insert(remindersUri, values);
+
+        if (uri != null && BuildConfig.DEBUG) {
+            Log.d("insertEvent", uri.toString());
+        }
 
     }
 
     /**
-     * 根据账户查询账户日历
+     * 根据账户查询账户日历活动
      *
      * @return List
      */
-    public static List<EventModel> queryEvents(Activity activity, int reqPermissionCode) {
-        if (checkCalendarPermission(activity)) {
-            List<EventModel> calendars = new ArrayList<>();
-            Cursor cursor;
-            // 本地帐户查询：ACCOUNT_TYPE_LOCAL是一个特殊的日历账号类型，它不跟设备账号关联。这种类型的日历不同步到服务器
-            // 如果是谷歌的账户是可以同步到服务器的
-            cursor = activity.getContentResolver().query(eventsUri, EVENTS_COLUMNS,
-                    CalendarContract.Calendars.ACCOUNT_NAME + " = ? ", new String[]{ACCOUNT_NAME}, null);
-            while (cursor != null && cursor.moveToNext()) {
-                EventModel eventModel = new EventModel();
-                eventModel.setId(cursor.getString(0));
-                eventModel.setStartTime(cursor.getLong(5));
-                eventModel.setContent(cursor.getString(3));
-                calendars.add(eventModel);
-            }
-            return calendars;
-        } else {
-
-            requestCalendarPermission(activity, reqPermissionCode);
+    public static List<EventModel> queryEvents(Activity activity) {
+        List<EventModel> calendars = new ArrayList<>();
+        Cursor cursor;
+        cursor = activity.getContentResolver().query(eventsUri, EVENTS_COLUMNS, CalendarContract.Calendars.ACCOUNT_NAME + " = ? ", new String[]{ACCOUNT_NAME}, null);
+        while (cursor != null && cursor.moveToNext()) {
+            EventModel eventModel = new EventModel();
+            eventModel.setId(cursor.getString(0));
+            eventModel.setTitle(cursor.getString(2));
+            eventModel.setContent(cursor.getString(3));
+            eventModel.setStartTime(cursor.getLong(5));
+            eventModel.setEndTime(cursor.getLong(6));
+            calendars.add(eventModel);
         }
-        return null;
+        return calendars;
+    }
+
+    /**
+     * 根据活动title查询账户日历活动
+     *
+     * @return List
+     */
+    public static List<EventModel> queryEvent(Activity activity, String title) {
+        List<EventModel> calendars = new ArrayList<>();
+        Cursor cursor;
+        cursor = activity.getContentResolver().query(eventsUri, EVENTS_COLUMNS, CalendarContract.Calendars.ACCOUNT_NAME + " = ? and " + CalendarContract.Events.TITLE + "=?", new String[]{ACCOUNT_NAME, title}, null);
+        while (cursor != null && cursor.moveToNext()) {
+            EventModel eventModel = new EventModel();
+            eventModel.setId(cursor.getString(0));
+            eventModel.setTitle(cursor.getString(2));
+            eventModel.setContent(cursor.getString(3));
+            eventModel.setStartTime(cursor.getLong(5));
+            eventModel.setEndTime(cursor.getLong(6));
+            calendars.add(eventModel);
+        }
+        return calendars;
     }
 
     /**
@@ -108,32 +122,34 @@ public class CalendarReminderUtils {
      *
      * @param model model
      */
-    public static void updateEvent(Activity activity, EventModel model, int reqPermissionCode) {
-        if (checkCalendarPermission(activity)) {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(CalendarContract.Events.DTSTART, model.getStartTime());
-            contentValues.put(CalendarContract.Events.DESCRIPTION, model.getContent());
-            activity.getContentResolver().update(eventsUri, contentValues
-                    , CalendarContract.Events._ID + " =? ", new String[]{model.getId()});
-        } else {
-            requestCalendarPermission(activity, reqPermissionCode);
-        }
+    public static void updateEvent(Activity activity, EventModel model) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CalendarContract.Events.DTSTART, model.getStartTime());
+        contentValues.put(CalendarContract.Events.DESCRIPTION, model.getContent());
+        activity.getContentResolver().update(eventsUri, contentValues
+                , CalendarContract.Events._ID + " =? ", new String[]{model.getId()});
     }
 
     /**
      * 删除某条Event
      *
-     * @param id id
+     * @param id eventId
      * @return The number of rows deleted.
      */
-    public static int deleteEvent(Activity activity, String id, int reqPermissionCode) {
-        if (checkCalendarPermission(activity)) {
-            return activity.getContentResolver()
-                    .delete(eventsUri, CalendarContract.Events._ID + " =? ", new String[]{id});
-        } else {
-            requestCalendarPermission(activity, reqPermissionCode);
-        }
-        return 0;
+    public static int deleteEvent(Activity activity, String id) {
+        return activity.getContentResolver()
+                .delete(eventsUri, CalendarContract.Events._ID + " =? ", new String[]{id});
+    }
+
+    /**
+     * 删除某条Event
+     *
+     * @param title eventTitle
+     * @return The number of rows deleted.
+     */
+    public static int deleteEventByTitle(Activity activity, String title) {
+        return activity.getContentResolver()
+                .delete(eventsUri, CalendarContract.Events.TITLE + " =? ", new String[]{title});
     }
 
     /**
@@ -141,14 +157,9 @@ public class CalendarReminderUtils {
      *
      * @return The number of rows deleted.
      */
-    public static int deleteAllEvent(Activity activity, int reqPermissionCode) {
-        if (checkCalendarPermission(activity)) {
-            return activity.getContentResolver()
-                    .delete(eventsUri, CalendarContract.Events.CALENDAR_ID + " =? ", new String[]{queryCalId(activity, reqPermissionCode)});
-        } else {
-            requestCalendarPermission(activity, reqPermissionCode);
-        }
-        return 0;
+    public static int deleteAllEvent(Activity activity) {
+        return activity.getContentResolver()
+                .delete(eventsUri, CalendarContract.Events.CALENDAR_ID + " =? ", new String[]{queryCalenderId(activity)});
     }
 
     /**
@@ -156,24 +167,20 @@ public class CalendarReminderUtils {
      *
      * @return calId
      */
-    private static String queryCalId(Activity activity, int reqPermissionCode) {
-        if (checkCalendarPermission(activity)) {
-            Cursor userCursor = null;
-            try {
-                userCursor = activity.getContentResolver().query(calendarsUri, null,
-                        "name=?", new String[]{ACCOUNT_NAME}, null);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (userCursor == null) {
-                return null;
-            }
-            if (userCursor.getCount() > 0) {
-                userCursor.moveToLast(); //是向符合条件的最后一个账户添加
-                return userCursor.getString(userCursor.getColumnIndex("_id"));
-            }
-        } else {
-            requestCalendarPermission(activity, reqPermissionCode);
+    private static String queryCalenderId(Activity activity) {
+        Cursor userCursor = null;
+        try {
+            userCursor = activity.getContentResolver().query(calendarsUri, null,
+                    "name=?", new String[]{ACCOUNT_NAME}, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (userCursor == null) {
+            return null;
+        }
+        if (userCursor.getCount() > 0) {
+            userCursor.moveToLast(); //是向符合条件的最后一个账户添加
+            return userCursor.getString(userCursor.getColumnIndex("_id"));
         }
         return null;
     }
@@ -205,22 +212,12 @@ public class CalendarReminderUtils {
     }
 
 
-    private static boolean checkCalendarPermission(Activity activity) {
-        return ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private static void requestCalendarPermission(Activity activity, int reqPermissionCode) {
-        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR}, reqPermissionCode);
-
-    }
-
     public static class EventModel {
         private String title;
         private String id;
-        private long startTime;
-        private long endTime;
+        private long startTime;//startMillis
+        private long endTime;//endMillis
         private String content;
-        private String location;
 
         public String getTitle() {
             return title;
@@ -246,14 +243,6 @@ public class CalendarReminderUtils {
             this.startTime = startTime;
         }
 
-        public long getEndTime() {
-            return endTime;
-        }
-
-        public void setEndTime(long endTime) {
-            this.endTime = endTime;
-        }
-
         public String getContent() {
             return content;
         }
@@ -262,12 +251,12 @@ public class CalendarReminderUtils {
             this.content = content;
         }
 
-        public String getLocation() {
-            return location;
+        public long getEndTime() {
+            return endTime;
         }
 
-        public void setLocation(String location) {
-            this.location = location;
+        public void setEndTime(long endTime) {
+            this.endTime = endTime;
         }
     }
 }
