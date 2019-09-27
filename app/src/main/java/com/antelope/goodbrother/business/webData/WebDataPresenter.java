@@ -45,7 +45,6 @@ public class WebDataPresenter extends BasePresenter {
             @Override
             public void onFailure(Call call, IOException e) {
 
-
             }
 
             @Override

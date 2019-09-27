@@ -30,7 +30,7 @@ public class OKHttpProxy {
     private final static Object object = new Object();
     private static OkHttpClient okHttpClient = new OkHttpClient().newBuilder().connectTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.SECONDS).build();
     private static Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(Constants.APP_URL_CLIENT_IP_PORT)//必须以"/"结尾
+            .baseUrl(Constants.getAppUrlClientIpPort())//必须以"/"结尾
             .client(okHttpClient)
             .build();
     private static APIService service = retrofit.create(APIService.class);
@@ -79,9 +79,7 @@ public class OKHttpProxy {
                 if (response.isSuccessful() && responseBody != null) {
                     try {
                         responseStr = responseBody.string();
-                        if (Constants.DEBUG) {
-                            Log.d("call", responseStr);
-                        }
+                        Log.d("call", responseStr);
                         showMessageProxy.stopProgressDialog();
                         resultModel = JSON.parseObject(responseStr, ResultModel.class);
                         String message = resultModel.getMessage();
@@ -112,6 +110,7 @@ public class OKHttpProxy {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                Log.e("onFailure", throwable.getMessage());
                 if (onResultFailListener != null) {
                     showMessageProxy.stopProgressDialog();
                     showMessageProxy.displayToast(context.getResources().getString(R.string.failure_str));

@@ -33,7 +33,7 @@ public class CookiesManager {
 
     public void syncCookie(String token) {
         cookieManager.setAcceptCookie(true);
-        cookieManager.setCookie(Constants.APP_URL_WEB_IP_PORT, "EmubaoToken=" + token + ";");
+        cookieManager.setCookie(Constants.getAppUrlClientIpPort(), "EmubaoToken=" + token + ";");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             cookieManager.flush();
         } else {

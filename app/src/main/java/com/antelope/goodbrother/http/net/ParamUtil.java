@@ -2,6 +2,7 @@ package com.antelope.goodbrother.http.net;
 
 import android.util.Log;
 
+import com.antelope.goodbrother.BuildConfig;
 import com.antelope.goodbrother.account.AccountManager;
 import com.antelope.goodbrother.config.Constants;
 import com.antelope.goodbrother.manager.KeyManager;
@@ -24,7 +25,6 @@ public class ParamUtil {
 
     static String buildParamStr(Map<String, Object> params, String serviceName) {
         params.put("Service", serviceName);
-        params.put("Token", AccountManager.getInstance().getToken());
         params.put("Platform", "01");
         params.put("UniqueId", UUID.randomUUID());
         String output = "";
@@ -32,7 +32,7 @@ public class ParamUtil {
         try {
             crypt = new CryptLib();
             String plainText = GsonUtils.mapToJson(params);
-            if (Constants.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 Log.d("BaseParamUtil", plainText);
             }
             plainText = StringUtils.gbEncoding(plainText);

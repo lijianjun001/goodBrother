@@ -52,10 +52,7 @@ android {
             jniLibs.srcDirs = ['libs']
             res.srcDirs = [
                     'src/main/res',
-                    'src/main/main_res',
-                    'src/main/my_res',
-                    'src/main/update_res',
-                    'src/main/banner_res',
+                    'src/main/res/layout/printer',
             ]
         }
     }
@@ -95,5 +92,6 @@ dependencies {
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     api 'com.aliyun.ams:alicloud-android-hotfix:3.2.7'
     api 'org.jsoup:jsoup:1.9.2'
+
 
 }

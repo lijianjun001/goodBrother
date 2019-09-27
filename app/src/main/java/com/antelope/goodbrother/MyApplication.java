@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.antelope.goodbrother.config.Constants;
 import com.nirvana.share.ShareThirdPart;
 import com.nirvana.zmkj.base.BaseApplication;
 import com.tencent.smtt.sdk.QbSdk;
@@ -23,7 +22,7 @@ public class MyApplication extends BaseApplication {
         JPushInterface.init(this);
         ShareThirdPart.register(getApplicationContext());
         //加载apk换资源
-        if (Constants.DEBUG) {
+        if (BuildConfig.DEBUG) {
             ARouter.openLog();     // 打印日志
             ARouter.openDebug();
         }
@@ -44,7 +43,7 @@ public class MyApplication extends BaseApplication {
             }
         };
         //x5内核初始化接口
-        QbSdk.initX5Environment(getApplicationContext(),  cb);
+        QbSdk.initX5Environment(getApplicationContext(), cb);
     }
 
     @Override

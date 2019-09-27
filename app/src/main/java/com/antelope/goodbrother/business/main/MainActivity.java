@@ -7,11 +7,8 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.antelope.goodbrother.config.RouterConfig;
 import com.nirvana.zmkj.base.BaseActivity;
 
-@Route(path = RouterConfig.ACTIVITY_MAIN)
 public class MainActivity extends BaseActivity {
 
     private ServiceConnection serviceConnection;

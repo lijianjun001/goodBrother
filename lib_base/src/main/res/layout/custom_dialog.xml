@@ -39,7 +39,7 @@
                 android:id="@+id/divider_line"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="#666666" />
+                android:background="@color/white" />
 
             <TextView
                 android:id="@+id/negative_tv"

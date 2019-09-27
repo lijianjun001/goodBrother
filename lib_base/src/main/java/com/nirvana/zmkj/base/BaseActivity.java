@@ -23,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        initState();
+        initState();
         super.onCreate(savedInstanceState);
         CustomActivityManager.addActivity(this);
     }

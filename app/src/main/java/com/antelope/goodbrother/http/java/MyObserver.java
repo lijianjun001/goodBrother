@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.antelope.goodbrother.BuildConfig;
 import com.antelope.goodbrother.config.Constants;
 import com.antelope.goodbrother.config.RouterConfig;
 import com.cylty.zmkj.okHttp.ApiException;
@@ -30,7 +31,7 @@ public abstract class MyObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        if (Constants.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Type genType = getClass().getGenericSuperclass();
             Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
             Log.e(params[0].toString(), e.toString());

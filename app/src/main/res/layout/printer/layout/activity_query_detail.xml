@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_scan_detail_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds142"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/close_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds22"
+            android:layout_marginTop="@dimen/ds66"
+            android:padding="@dimen/ds10"
+            android:src="@drawable/title_close" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/ds66"
+            android:text="发票详情"
+            android:textColor="#333333"
+            android:textSize="@dimen/ds36" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/ds16"
+        android:layout_marginTop="@dimen/ds61"
+        android:layout_marginRight="@dimen/ds16"
+        android:background="@drawable/scan_detail_pager"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/ds50"
+            android:text="“众牧宝”扫码注册送羊小串"
+            android:textColor="@color/black"
+            android:textSize="@dimen/ds36" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds50"
+            android:layout_marginTop="@dimen/ds86"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/ds130"
+                android:layout_height="wrap_content"
+                android:text="手机号"
+                android:textColor="#999999"
+                android:textSize="@dimen/ds30" />
+
+            <TextView
+                android:id="@+id/tel_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds21"
+                android:text="134****1234"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ds30" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="@dimen/ds669"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ds50"
+            android:layout_marginTop="@dimen/ds36"
+            android:background="@drawable/scan_border"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds20"
+                android:layout_marginTop="@dimen/ds30"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/ds130"
+                    android:layout_height="wrap_content"
+                    android:text="兑换时间"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/ds30" />
+
+                <TextView
+                    android:id="@+id/change_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds21"
+                    android:text="2019-09-30  12:45"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ds30" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds20"
+                android:layout_marginTop="@dimen/ds30"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/register_rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+
+                    <TextView
+                        android:id="@+id/register_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+
+                        android:text="注册-羊小串"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/ds30"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/register_tv"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/ds70"
+                        android:text="x    1"
+
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/ds30"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/realname_rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ds20"
+                    android:visibility="gone">
+
+
+                    <TextView
+                        android:id="@+id/realname_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="实名-羊小串"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/ds30"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/realname_tv"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/ds70"
+                        android:text="x    2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/ds30"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ds20"
+                android:layout_marginTop="@dimen/ds32"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/ds130"
+                    android:layout_height="wrap_content"
+                    android:text="服务员"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/ds30" />
+
+                <TextView
+                    android:id="@+id/waiter_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ds21"
+                    android:text="zm001"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ds30" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ds80"
+        android:visibility="gone">
+
+        <Button
+            android:layout_width="@dimen/ds300"
+            android:layout_height="@dimen/ds90"
+            android:layout_marginLeft="@dimen/ds60"
+            android:background="@drawable/main_scan_detail_sure_bg"
+            android:text="确认打印"
+            android:textColor="#13A97B"
+            android:textSize="@dimen/ds33" />
+
+        <Button
+            android:layout_width="@dimen/ds300"
+            android:layout_height="@dimen/ds90"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/ds60"
+            android:background="@drawable/main_scan_detail_back_bg"
+            android:text="返回扫描"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds33" />
+    </RelativeLayout>
+
+</LinearLayout>

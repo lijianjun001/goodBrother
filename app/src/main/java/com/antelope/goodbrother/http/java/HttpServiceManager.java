@@ -52,7 +52,7 @@ public class HttpServiceManager {
 
     private <T> T configRetrofit(Class<T> service) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.APP_URL_CLIENT_IP_PORT2)
+                .baseUrl(Constants.getAppUrlClientIpJava())
                 .client(configClient())
                 .addConverterFactory(MyGsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

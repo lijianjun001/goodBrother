@@ -57,7 +57,7 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
         views = new ArrayList<>();
         LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        for (int pic: pics) {
+        for (int pic : pics) {
             ImageView iv = new ImageView(this);
             iv.setLayoutParams(mParams);
             BitmapUtil.setBackground(this, iv, pic);
@@ -89,7 +89,7 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
 
     @Override
     protected void onDestroy() {
-        for (View view: views) {
+        for (View view : views) {
             BitmapUtil.recycleBackground(view);
         }
         super.onDestroy();

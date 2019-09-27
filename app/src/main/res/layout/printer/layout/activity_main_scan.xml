@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/connect_fl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds96"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/ds126"
+        android:layout_marginTop="@dimen/ds200"
+        android:layout_marginRight="@dimen/ds126">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="@drawable/main_scan_btn_bg"></View>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="连接打印机"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds36" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/test_fl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds96"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/ds126"
+        android:layout_marginTop="@dimen/ds150"
+        android:layout_marginRight="@dimen/ds126"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="@drawable/main_scan_btn_bg"></View>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="打印测试页"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds36" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/scan_fl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ds96"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/ds126"
+        android:layout_marginTop="@dimen/ds200"
+        android:layout_marginRight="@dimen/ds126">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="@drawable/main_scan_btn_bg"></View>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="扫描二维码"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds36" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/ds128"
+        android:layout_marginTop="@dimen/ds143">
+
+        <EditText
+            android:id="@+id/tel_et"
+            android:layout_width="@dimen/ds377"
+            android:layout_height="@dimen/ds96"
+            android:background="@drawable/main_input_bg"
+            android:hint="请输入手机号"
+            android:inputType="phone"
+            android:paddingLeft="@dimen/ds34"
+            android:textColor="#333333"
+            android:textColorHint="#C6C6C6"
+            android:textSize="@dimen/ds33" />
+
+        <Button
+            android:id="@+id/query_btn"
+            android:layout_width="@dimen/ds160"
+            android:layout_height="@dimen/ds96"
+            android:layout_marginLeft="@dimen/ds13"
+            android:background="@drawable/main_btn_bg"
+            android:text="查询"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ds33" />
+    </LinearLayout>
+
+</LinearLayout>

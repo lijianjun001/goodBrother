@@ -1,6 +1,5 @@
 package com.antelope.goodbrother.business.main;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.view.View;
 

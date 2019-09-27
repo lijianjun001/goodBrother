@@ -8,24 +8,23 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cylty.zmkj.utils.StringUtils;
 import com.nirvana.ylmc.lib_base.R;
 
 public class CustomProgressDialog extends Dialog {
+
+    private TextView messageTv;
 
     public CustomProgressDialog(Context context, int theme) {
         super(context, theme);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.custom_progress_dialog);
         if (getWindow() != null) {
             getWindow().getAttributes().gravity = Gravity.CENTER;
         }
-        setCanceledOnTouchOutside(false);
-        setCancelable(false);
     }
 
     @Override
@@ -36,10 +35,29 @@ public class CustomProgressDialog extends Dialog {
         animationDrawable.start();
     }
 
-    public void setMessage(String strMessage) {
-        TextView messageTv = findViewById(R.id.loading_tv);
-        if (!StringUtils.isEmpty(strMessage)&&messageTv!=null) {
-            messageTv.setText(strMessage);
+    public static class Builder {
+        private CustomProgressDialog dialog;
+
+        private String message;
+
+        public Builder(Context context) {
+            dialog = new CustomProgressDialog(context, R.style.CustomProgressDialog);
+            dialog.setContentView(R.layout.custom_progress_dialog);
+            dialog.messageTv = dialog.findViewById(R.id.message_tv);
+        }
+
+        public CustomProgressDialog create() {
+            if (message != null && dialog.messageTv != null) {      //设置提示内容
+                dialog.messageTv.setText(message);
+            }
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
+            return dialog;
+        }
+
+        public Builder setMessage(String message) {
+            this.message = message;
+            return this;
         }
     }
 }
